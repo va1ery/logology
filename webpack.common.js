@@ -23,6 +23,12 @@ var path = require("path"),
     ExtractTextPlugin = require("extract-text-webpack-plugin"),
     CopyWebpackPlugin = require("copy-webpack-plugin");
 
+var extensions = [".js", ".ts", ".jsx", ".es", // typical JS extensions
+                  ".jsm", ".esm",               // jsm is node's ES6 module ext
+                  ".json",                      // some modules require json without an extension
+                  ".css", ".scss",              // CSS & SASS extensions
+                  "*"];                         // allow extensions on imports
+
 var dirs = {
     css:      "css",
     es:       "es",
@@ -83,6 +89,7 @@ function config(options) {
         outputPaths = options.outputPaths,
         indexes = options.indexes,
         dirs = options.dirs,
+        extensions = options.extensions,
         vendor = options.vendor,
         allowTypeScript = options.allowTypeScript || false,
         allowScss = options.allowScss | false,
@@ -168,11 +175,12 @@ function config(options) {
             path: outputPaths.www,
         },
         resolve: {
-            extensions: [".js", ".ts", ".jsx", ".es", // typical JS extensions
-                        ".jsm", ".esm",              // jsm is node's ES6 module ext
-                        ".css", ".scss",             // CSS & SASS extensions
-                        ".json",
-                        "*"],                        // allow extensions on imports
+            extensions: extensions ||
+                       [".js", ".ts", ".jsx", ".es", // typical JS extensions
+                        ".jsm", ".esm",               // jsm is node's ES6 module ext
+                        ".json",                      // some modules require json without an extension
+                        ".css", ".scss",              // CSS & SASS extensions
+                        "*"],                         // allow extensions on imports
             modules: [
                 path.resolve(sourcePaths.src, dirs.es, "lib"),
                 path.resolve(sourcePaths.src, dirs.es, "vendor"),
@@ -180,7 +188,7 @@ function config(options) {
                 path.resolve(sourcePaths.src, dirs.ts, "vendor"),
                 path.resolve(sourcePaths.src, "lib"),
                 path.resolve(sourcePaths.src, "vendor"),
-                path.resolve(__dirname, "node_modules")
+                "node_modules"
             ],
             alias: Object.assign({}, {
                 "$LIB": path.join(dirs.lib),
@@ -201,9 +209,8 @@ function config(options) {
         },
         module: {
             rules: [
-                { test: /globalize/, loader: "imports-loader?define=>false" },
                 { test: /\.(html|txt)$/, use: "raw-loader" },
-                { test: /\.(png|jpg|svg)$/, use: ["file-loader"]},
+                { test: /\.(png|jpg|svg|gif)$/, use: ["file-loader"]},
                 { test: /\.(json|json5)$/, use: "json5-loader" },
                 {
                     test: /\.scss$/,
@@ -243,6 +250,7 @@ function config(options) {
 module.exports = {
     defaults: {
         dirs: dirs,
+        extensions: extensions,
         assetsToCopyIfExternal: assetsToCopyIfExternal,
         assetsToCopyIfSibling: assetsToCopyIfSibling,
         vendor: vendor,

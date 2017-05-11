@@ -63,9 +63,9 @@ export function createNotes(options = {}) {
 }
 
 let notes;
-export function getNotes() {
+export function getNotes(options) {
     if (!notes) {
-        notes = createNotes();
+        notes = createNotes(options);
     }
     return notes;
 }

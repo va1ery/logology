@@ -49,30 +49,3 @@ y-icon, [is="y-icon"] {
   padding:0 !important;
 }
 
-$glyphs: (search, magnifying-glass),
-        (menu, menu),
-        (fav, bookmark),
-        (make-note, pencil),
-        (share, share)
-;
-
-@each $icon, $glyph in $glyphs {
-  y-#{$icon}-glyph, [is="y-#{$icon}-glyph"] {
-    @extend y-icon;
-    &:before {
-      mask-image: url(../img/#{$glyph}.png);
-      @media #{$dp2} {
-        mask-image: url(../img/#{$glyph}@2x.png);
-      }
-    }
-  }
-  y-#{$icon}-text-glyph, [is="y-#{$icon}-text-glyph"] {
-    @extend y-icon-text;
-    &:before {
-      mask-image: url(../img/#{$glyph}.png);
-      @media #{$dp2} {
-        mask-image: url(../img/#{$glyph}@2x.png);
-      }
-    }
-  }
-}

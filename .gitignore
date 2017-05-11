@@ -22,3 +22,6 @@ plugins/
 typings/
 www/*
 !www/.gitkeep
+.tmp
+coverage
+.nyc_output

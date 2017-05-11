@@ -1,18 +1,18 @@
 /*
  * Logology testing suite
- * 
+ *
  * This suite tests the basic features of Logology. Don't assume that this test suite
  * is in any way complete; as bugs are discovered, new tests will be added.
- * 
- * Author: Kerri Shotts <kerrishotts@gmail.com> 
+ *
+ * Author: Kerri Shotts <kerrishotts@gmail.com>
  *         http://www.photokandy.com/books/mastering-phonegap
  *
  * MIT LICENSED
- * 
+ *
  * Copyright (c) 2016 Packt Publishing
  * Portions Copyright (c) 2016 Kerri Shotts (photoKandy Studios LLC)
  * Portions Copyright various third parties where noted.
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this
  * software and associated documentation files (the "Software"), to deal in the Software
  * without restriction, including without limitation the rights to use, copy, modify,
@@ -33,8 +33,8 @@
 "use strict";
 
 let should = require("./helpers/setup").should;
-import Dictionary from "../src/www/js/app/models/Dictionary";
-import Definition from "../src/www/js/app/models/Definition";
+import Dictionary from "../www.src/es/app/models/Dictionary";
+import Definition from "../www.src/es/app/models/Definition";
 
 describe("Dictionary Tests", () => {
 
@@ -45,14 +45,14 @@ describe("Dictionary Tests", () => {
             return dictionary.should.exist;
         });
     });
-    
+
     describe ("#Loaded", () => {
         it("should be able to set itself as loaded", () => {
             dictionary.loaded();
             return dictionary.isLoaded.should.be.true;
         })
     })
-    
+
     describe ("#Empty", () => {
         it("should return an empty sorted index", () => {
             return dictionary.sortedIndex.should.have.lengthOf(0);

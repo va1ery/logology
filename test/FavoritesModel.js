@@ -1,18 +1,18 @@
 /*
  * Logology testing suite
- * 
+ *
  * This suite tests the basic features of Logology. Don't assume that this test suite
  * is in any way complete; as bugs are discovered, new tests will be added.
- * 
- * Author: Kerri Shotts <kerrishotts@gmail.com> 
+ *
+ * Author: Kerri Shotts <kerrishotts@gmail.com>
  *         http://www.photokandy.com/books/mastering-phonegap
  *
  * MIT LICENSED
- * 
+ *
  * Copyright (c) 2016 Packt Publishing
  * Portions Copyright (c) 2016 Kerri Shotts (photoKandy Studios LLC)
  * Portions Copyright various third parties where noted.
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this
  * software and associated documentation files (the "Software"), to deal in the Software
  * without restriction, including without limitation the rights to use, copy, modify,
@@ -31,13 +31,15 @@
 
 "use strict";
 let should = require("./helpers/setup").should;
-import Favorites from "../src/www/js/app/models/Favorites";
+import Favorites from "../www.src/es/app/models/Favorites";
+import {createIndexedDBKVStore} from "../www.src/es/app/lib/IndexedDBKVStore";
+let indexedDB = require("fake-indexeddb");
 
 describe("Favorites", () => {
 
     describe("#Create", () => {
         it("should be able to create a new Favorites object", () => {
-            let favorites = new Favorites();
+            let favorites = new Favorites({adapter:createIndexedDBKVStore({indexedDB})});
             return favorites.should.exist;
         });
     });
@@ -45,7 +47,7 @@ describe("Favorites", () => {
     describe("#Manage", () => {
         let favorites = {};
         it ("should report a new word as not a favorite", () => {
-            favorites = new Favorites();
+            favorites = new Favorites({adapter:createIndexedDBKVStore({indexedDB})});
             favorites.isWordAFavorite("mumble").should.become(false);
         });
         it ("should save a word as a favorite", () => {

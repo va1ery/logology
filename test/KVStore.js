@@ -1,18 +1,18 @@
 /*
  * Logology testing suite
- * 
+ *
  * This suite tests the basic features of Logology. Don't assume that this test suite
  * is in any way complete; as bugs are discovered, new tests will be added.
- * 
- * Author: Kerri Shotts <kerrishotts@gmail.com> 
+ *
+ * Author: Kerri Shotts <kerrishotts@gmail.com>
  *         http://www.photokandy.com/books/mastering-phonegap
  *
  * MIT LICENSED
- * 
+ *
  * Copyright (c) 2016 Packt Publishing
  * Portions Copyright (c) 2016 Kerri Shotts (photoKandy Studios LLC)
  * Portions Copyright various third parties where noted.
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this
  * software and associated documentation files (the "Software"), to deal in the Software
  * without restriction, including without limitation the rights to use, copy, modify,
@@ -51,15 +51,15 @@ else {
 }
 let should = require("./helpers/setup").should;
 
-import {createKVStore} from "../src/www/js/app/lib/KVStore";
-import {createLocalStorageKVStore} from "../src/www/js/app/lib/LocalStorageKVStore";
-import {createIndexedDBKVStore} from "../src/www/js/app/lib/IndexedDBKVStore";
-import {createWebSQLKVStore} from "../src/www/js/app/lib/WebSQLKVStore";
+import {createKVStore} from "../www.src/es/app/lib/KVStore";
+import {createLocalStorageKVStore} from "../www.src/es/app/lib/LocalStorageKVStore";
+import {createIndexedDBKVStore} from "../www.src/es/app/lib/IndexedDBKVStore";
+import {createWebSQLKVStore} from "../www.src/es/app/lib/WebSQLKVStore";
 
 describe ("KVStore", () => {
     [["localStorage", createLocalStorageKVStore, "localStorage", localStorage],
      ["IndexedDB",    createIndexedDBKVStore, "indexedDB", indexedDB],
-     ["WebSQL",       createWebSQLKVStore,       "openDatabase", openDatabase]
+     //["WebSQL",       createWebSQLKVStore,       "openDatabase", openDatabase]
     ].forEach( ([adapterName, adapterFn, mockProperty, mock]) => {
         describe ("Using " + adapterName, () => {
             if (mock) {

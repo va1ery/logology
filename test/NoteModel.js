@@ -1,18 +1,18 @@
 /*
  * Logology testing suite
- * 
+ *
  * This suite tests the basic features of Logology. Don't assume that this test suite
  * is in any way complete; as bugs are discovered, new tests will be added.
- * 
- * Author: Kerri Shotts <kerrishotts@gmail.com> 
+ *
+ * Author: Kerri Shotts <kerrishotts@gmail.com>
  *         http://www.photokandy.com/books/mastering-phonegap
  *
  * Copyright (c) 2016 Packt Publishing, except where otherwise indicated. Dependencies
  * are copyright their respective owners. For license information, see /LICENSE and the
  * licenses of dependencies.
- * 
+ *
  * MIT LICENSED
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this
  * software and associated documentation files (the "Software"), to deal in the Software
  * without restriction, including without limitation the rights to use, copy, modify,
@@ -32,14 +32,16 @@
 "use strict";
 
 let should = require("./helpers/setup").should;
-import Note from "../src/www/js/app/models/Note";
-import {getNotes} from "../src/www/js/app/models/Notes";
+import Note from "../www.src/es/app/models/Note";
+import {getNotes} from "../www.src/es/app/models/Notes";
+import {createIndexedDBKVStore} from "../www.src/es/app/lib/IndexedDBKVStore";
+let indexedDB = require("fake-indexeddb");
 
 describe("Note", () => {
 
     describe("#Create", () => {
         it("should be able to create a new Note object for a cat", () => {
-            let note = new Note({lemma:"cat"});
+            let note = new Note({lemma:"cat", adapter:createIndexedDBKVStore({indexedDB})});
             return note.should.exist;
         });
     });
@@ -48,7 +50,7 @@ describe("Note", () => {
         let note = {},
             notes = {};
         it ("should be able to save a note", () => {
-            note = new Note({lemma:"cat"});
+            note = new Note({lemma:"cat", adapter:createIndexedDBKVStore({indexedDB})});
             notes = getNotes();
             note.note = "Cats are cute";
             return notes.getNoteForWord("cat").should.become(note.note);

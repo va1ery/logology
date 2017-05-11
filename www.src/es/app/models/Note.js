@@ -40,7 +40,7 @@ export default class Note extends Emitter {
         super({adapter});
         this[_lemma] = lemma;
         this[_note] = undefined;
-        getNotes().getNoteForWord(lemma)
+        getNotes({adapter}).getNoteForWord(lemma)
                   .then((note) => { this[_note] = note ? note : ""; })
                   .then(() => this.emit("model:changed:note"));
     }
